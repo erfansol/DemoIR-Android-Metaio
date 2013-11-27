@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!--    Example tracking configuration file for using marker-based tracking.
+        Marker tracking is the detection of markers in a camera image and
+        the estimation of the camera position with respect to these markers.
+        Markers, in contrast to natural features, are easy to detect with high
+        precision, which in turn allows to estimate the camera position with
+        high accuracy. 
+        There are three different marker types that can be used:
+        - ID marker,
+        - picture marker and
+        - rectangular image marker
+        To use one or more of these markers for the tracking process, they need
+        to be defined in the configuration file. If a marker is not defined, 
+        but is seen during the tracking process, then it will simply be ignored. 
+        Besides the configuration file, a camera calibration file needs to be 
+        provided. A more precise camera calibration will lead to more accurate 
+        tracking results, so it is advisible to use a high-quality camera 
+        calibration. -->
+<TrackingData>
+     <Sensors>
+    <Sensor Type="FeatureBasedSensorSource" Subtype="Fast">
+        <SensorID>FeatureTracking1</SensorID>
+        <Parameters>
+            <FeatureDescriptorAlignment>regular</FeatureDescriptorAlignment>
+            <!--  <MaxObjectsToDetectPerFrame>10</MaxObjectsToDetectPerFrame> -->
+            <MaxObjectsToTrackInParallel>2</MaxObjectsToTrackInParallel>
+            <SimilarityThreshold>0.7</SimilarityThreshold>
+        </Parameters>
+        <SensorCOS>
+            <SensorCosID>Patch1</SensorCosID>
+            <Parameters>
+                <ReferenceImage>target_altare.png</ReferenceImage>
+                <SimilarityThreshold>0.7</SimilarityThreshold>
+            </Parameters>
+        </SensorCOS>
+        <SensorCOS>
+            <SensorCosID>Patch2</SensorCosID>
+            <Parameters>
+                <ReferenceImage>target_colosseo.png</ReferenceImage>
+                <SimilarityThreshold>0.7</SimilarityThreshold>
+            </Parameters>
+        </SensorCOS>
+
+    </Sensor>
+</Sensors>
+<Connections> 
+<COS>
+<!--    A descriptive name for this COS. -->
+        <Name>MarkerlessCOS1</Name>
+        <Fuser Type="SmoothingFuser">
+            <Parameters>
+                <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                <GravityAssistance></GravityAssistance>
+                <AlphaTranslation>0.8</AlphaTranslation>
+                <GammaTranslation>0.8</GammaTranslation>
+                <AlphaRotation>0.5</AlphaRotation>
+                <GammaRotation>0.5</GammaRotation>
+                <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+            </Parameters>
+        </Fuser>
+
+        <SensorSource>
+            <SensorID>FeatureTracking1</SensorID>
+            <SensorCosID>Patch1</SensorCosID>
+            <HandEyeCalibration>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </HandEyeCalibration>
+            <COSOffset>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </COSOffset>
+        </SensorSource>
+    </COS>
+
+            <COS>
+        <Name>MarkerlessCOS2</Name>
+        <Fuser Type="BestQualityFuser">
+            <Parameters>
+                <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                <GravityAssistance></GravityAssistance>
+                <AlphaTranslation>0.8</AlphaTranslation>
+                <GammaTranslation>0.8</GammaTranslation>
+                <AlphaRotation>0.5</AlphaRotation>
+                <GammaRotation>0.5</GammaRotation>
+                <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+            </Parameters>
+        </Fuser>
+
+        <SensorSource>
+            <SensorID>FeatureTracking1</SensorID>
+            <SensorCosID>Patch2</SensorCosID>
+            <HandEyeCalibration>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </HandEyeCalibration>
+            <COSOffset>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </COSOffset>
+        </SensorSource>
+    </COS>
+
+</Connections>
+</TrackingData>
